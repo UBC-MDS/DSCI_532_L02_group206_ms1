@@ -50,7 +50,13 @@ when an individual is representing the project or its community. Examples of
 representing a project or community include using an official project e-mail
 address, posting via an official social media account, or acting as an appointed
 representative at an online or offline event. Representation of a project may be
-further defined and clarified by project maintainers.
+further defined and clarified by project maintainers. 
+
+The team members are part of the MDS program at UBC and this project is part of the DSCI 532 visualization course. The team members include:
+
+- Kenneth Foo
+- Keanna Knebel
+- Aman Kumar
 
 ## Enforcement
 
@@ -64,6 +70,7 @@ Further details of specific enforcement policies may be posted separately.
 Project maintainers who do not follow or enforce the Code of Conduct in good
 faith may face temporary or permanent repercussions as determined by other
 members of the project's leadership.
+
 
 ## Attribution
 
