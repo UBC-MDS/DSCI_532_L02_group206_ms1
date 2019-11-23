@@ -1,6 +1,7 @@
 # DSCI_532_L02_group206_ms1
 Milestone 1 Repository - Dashboard in Python with Altair
 
+# Animal Shelter App Description
 Our team's proposed app is targeted at shelter staff, and aims to provide users with salient insights behind Austin Animal Shelter. By using our app, they can make informed decisions about their operational planning and budgeting, and ensure the sustainability of the shelter.
 
 <p align="center">
@@ -26,3 +27,6 @@ The app brings the user to a full view of 5 charts relevant to the animal intake
 With the first graph, it provides a simple metric tracking of animal intakes and outtakes per year, which may indicate a macro trend in terms of animal rescues, abandonment, and adoption. Since the charts are on a monthly breakdown, it also helps depict any possible seasonal trends within each year. The next 2 charts provide the user information about specific animal average intake and outtake counts for weekdays so it is easy to understand the workload/resource requirements on a daily impact. The 4th graph allows for quick comparison of age distribution across varying animal intakes. The 5th graph presents the time spent in the shelter before outtake for each animal type, which highlights to the user which animals may need more help in terms of matching to possible adoption owners. 
 
 ![App Sketch](./img/AppSketch.png)
+
+# Contributions 
+We welcome all contributions to this project! If you notice a bug, or have a feature request, please open up an issue here. If you'd like to contribute a feature or bug fix, you can fork our repo and submit a pull request. We will review pull requests within 7 days. All contributors must abide by our code of conduct.
