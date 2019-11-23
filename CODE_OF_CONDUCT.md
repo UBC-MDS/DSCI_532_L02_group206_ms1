@@ -65,6 +65,15 @@ Project maintainers who do not follow or enforce the Code of Conduct in good
 faith may face temporary or permanent repercussions as determined by other
 members of the project's leadership.
 
+## Our Scope
+
+The team members are part of the MDS program at UBC and this project is part of the DSCI 532 visualization course. The team members include:
+
+- Kenneth Foo
+- Keanna Knebel
+- Aman Kumar
+
+
 ## Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
