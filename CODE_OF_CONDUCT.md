@@ -71,10 +71,6 @@ Project maintainers who do not follow or enforce the Code of Conduct in good
 faith may face temporary or permanent repercussions as determined by other
 members of the project's leadership.
 
-## Our Scope
-
-
-
 
 ## Attribution
 
