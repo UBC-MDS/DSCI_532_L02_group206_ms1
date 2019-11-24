@@ -1,20 +1,20 @@
 # Proposal
 
-### Motivation and purpose
+### Motivation and Purpose
 
-Animal shelters serve to provide placement services, medical attention, and shelter to abandoned or injured animals. These shelters act as non-profit organizations, and as a result, they are often strapped for resources and rely heavily on volunteers. These issues are further compounded in animal shelters that implement no-kill policies, such as the [Austin Animal Center(AAC)](http://www.austintexas.gov/department/aac). In particular, two key factors remain paramount, namely, the intake and outtake volumes of animals. Both require extensive resources in terms of either onboarding and discharge procedures. Thus, resource planning and manpower scheduling are important facets of operation management to ensure the sustainability of the shelter.
+Animal shelters serve to provide placement services, medical attention, and shelter to abandoned or injured animals. These shelters act as non-profit organizations, and as a result, they are often strapped for resources and rely heavily on volunteers. These issues are further compounded in animal shelters that implement no-kill policies, such as the [Austin Animal Center (AAC)](http://www.austintexas.gov/department/aac). In particular, two key factors remain paramount, namely, the intake and outtake volumes of animals. Both require extensive resources in terms of either onboarding and discharge procedures. Thus, resource planning and manpower scheduling are important facets of operation management to ensure the sustainability of the shelter.
 
 Our app will serve the shelter staff with visualizations that provide critical information to enable improved staff/volunteer scheduling and resource planning. They can visually gauge the seasonality of intake/outtake volume across time. Users can explore the intake/outtake volumes by animal types across weekdays, and also evaluate if certain factors extend the time spent by animals in the shelter before outtake. They can also easily understand the age distribution of animals upon intake.
 
 By adopting our proposed app, users can obtain insightful perspectives on the shelter’s operations, and make informed decisions about resource planning and staff/volunteer scheduling.
 
-### Description of the data
+### Description of the Data
 
 Our app visualizes a dataset of approximately 70,000 animal intakes at the ACC, in Texas. This is the largest no-kill animal shelter in the United States, providing shelter to over 18,000 animals each year. As part of the AAC's efforts to bring awareness and care for animals in need, the organization makes its accumulated intake and outcomes data available as part of the city of [Austin's Open Data Initiative](https://data.austintexas.gov/browse?q=austin%20animal%20center&sortBy=relevance&utf8=%E2%9C%93).
 
 The dataset contains information on intakes and outcomes of animals entering the AAC from October 2013 to March 2018. Each animal record has 14 associated variables which describe information about the animal itself (animal_type, breed, sex, age), the time frame of the animal's stay in the shelter (intake_monthyear, intake_weekday, total_time_in_shelter_days), and the conditions surrounding the intake and outcome of the animal (intake_condition, intake_type, outcome_type).
 
-### Research questions you are exploring
+### Research Questions you are Exploring
 
 Peter is a volunteer at the Austin Animal Center with a desire to improve the operations within the shelter. He is overseeing both the scheduling of volunteers and resource budget planning; thus, he seeks to understand the daily demands of the animal shelter. In particular, Peter is especially interested in understanding the daily intake of rescue/abandon animals, as well as, the number of outtake discharges.
 
