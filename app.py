@@ -236,7 +236,7 @@ dbc.Container
                     },
                     value=[2014, 2017],
                     pushable = 1,
-                    className="margin10"
+                    className="margin"
                     )
             ]),
 
