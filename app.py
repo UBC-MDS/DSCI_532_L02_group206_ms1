@@ -51,6 +51,7 @@ data_new4 = data_new4.drop("age_upon_intake_(days)", axis = 1)
 
 # Plot 5
 data_new5 = df[["intake_year","animal_type","intake_condition", "total_time_in_shelter_days"]].copy()
+data_new5.rename(columns={'total_time_in_shelter_days':'Days in Shelter'}, inplace = True)
 
 ######### Create plotting functions ##########
 
@@ -130,20 +131,28 @@ def make_plot_3(year_range = [2013,2016], animal = "Dog"):
     
     return chart
 
-def make_plot_4(year_range = [2013, 2016], animal = "Cat"):
+def make_plot_4(year_range = [2013, 2016], animal = "All"):
 
+    # Filtering for intake year via common filter 
+    if animal == "All":
+        df4 = data_new4[(   (data_new4['intake_year'] >= year_range[0]) & 
+                            (data_new4['intake_year'] <= year_range[1])
+                        )]
+        title_string = "Animal"
     # Filtering for intake year via common filter and animal type
-    df4 = data_new4[(   (data_new4['intake_year'] >= year_range[0]) & 
-                        (data_new4['intake_year'] <= year_range[1]) & 
-                        (data_new4['animal_type'] == animal))
-                    ]
+    else:
+        df4 = data_new4[(   (data_new4['intake_year'] >= year_range[0]) & 
+                            (data_new4['intake_year'] <= year_range[1]) & 
+                            (data_new4['animal_type'] == animal))
+                        ]
+        title_string = animal
 
     chart = alt.Chart(df4).mark_bar().encode(
             alt.X("age:Q", bin=alt.Bin(step=1), title = "Age (years)"),
             alt.Y('count():Q', stack = None, title = "Count"),
             tooltip = ['count():Q', 'age:Q']
             ).properties(title= animal + 's Intake Age Distribution',
-                        width=325, height=250
+                        width=300, height=250
             ).configure_axisX(
                         labelFontSize=12,
                         titleFontSize=15,
@@ -173,11 +182,11 @@ def make_plot_5(year_range = [2013, 2016], intake_health_condition = "Healthy"):
 
     chart = alt.Chart(df5).mark_boxplot(size=40,extent='min-max').encode(
         alt.X("animal_type:N", title = "Animal Type"),
-        alt.Y('total_time_in_shelter_days:Q', title="Days",scale=alt.Scale(type='log')),
-        tooltip = [alt.Tooltip("animal_type:N"),
-                    alt.Tooltip("total_time_in_shelter_days:Q", title = "Time in Shelter", format = ".2f")]
+        alt.Y('Days in Shelter:Q', title="Days",scale=alt.Scale(type='log'))
+        #tooltip = [alt.Tooltip("animal_type:N"),
+                    #alt.Tooltip("total_time_in_shelter_days:Q", title = "Time in Shelter", format = ".2f")]
         ).properties(title='Time spent in shelter',
-                    width=350, height=250
+                    width=300, height=250
         ).configure_axisX(labelFontSize=12,
                     titleFontSize=15,
                     labelAngle = 0
@@ -314,21 +323,26 @@ dbc.Container
                     dbc.Col([
                         html.Div([
                             dcc.Markdown("Animal Type"),
-                            dcc.RadioItems(
-                                id='plot4-radio',
-                                options=[
-                                    {'label': 'Cats', 'value': 'Cat'},
-                                    {'label': 'Dogs', 'value': 'Dog'},
-                                    {'label': 'Birds', 'value': 'Bird'},
-                                    {'label': 'Others', 'value': 'Other'}
-                                ],
-                                value='Cat',
-                                style={"display":"table"}
-                                )
-                            ], style={"display":"inline-block", "width":"35%"}),                   
+                            html.Div([
+                                dcc.RadioItems(
+                                    id='plot4-radio',
+                                    options=[
+                                        {'label': 'All', 'value': 'All'},
+                                        {'label': 'Cats', 'value': 'Cat'},
+                                        {'label': 'Dogs', 'value': 'Dog'},
+                                        {'label': 'Birds', 'value': 'Bird'},
+                                        {'label': 'Others', 'value': 'Other'}
+                                    ],
+                                    value='All',
+                                    style={"display":"table"}
+                                    )
+                            ],style={"width":"70px"})
+                        ], style={"display":"inline-block", "width":"35%"}),                   
                         html.Div([], style={"color":"black","width":"20%", "display":"inline-block"}),
                         html.Div([
                             dcc.Markdown("Intake Condition", style={"textAlign":"left"}),
+                            
+                            html.Div([
                             dcc.RadioItems(
                                 id='plot5-radio',
                                 options=[
@@ -345,9 +359,10 @@ dbc.Container
                                         ],
                                 value='All',
                                 style={"display":"table"}
-                                ),                   
-                                ], style={"display":"inline-block", "width":"35%"}),
-                            ], width = {"size":3, "offset":1}),
+                                ),
+                            ],style={"width":"80px"})
+                        ], style={"display":"inline-block", "width":"35%"}),
+                    ], width = {"size":3, "offset":1}),
                     
                     # Plot 5
                     dbc.Col([
