@@ -56,7 +56,7 @@ data_new5 = df[["intake_year","animal_type","intake_condition", "total_time_in_s
 
 def make_plot_1(year_range = [2013,2016]):
 
-    print (year_range[0])
+    
     data_new_filter = data_new[((data_new['intake_year'] >= year_range[0]) & (data_new['intake_year'] <= year_range[1]))]
     chart = alt.Chart(data_new_filter).mark_line().encode(
         alt.X("intake_monthyear:N", title = "Time (Month-Year)"),
@@ -90,42 +90,59 @@ def make_plot_1(year_range = [2013,2016]):
 
 def make_plot_2(year_range = [2013,2016], animal = "Dog" ):
 
-    data_new2_filter = data_new2[((data_new2['intake_year'] >= year_range[0]) &  
-    (data_new2['intake_year'] <= year_range[1])
-    & (data_new2['animal_type'] == animal))]
+
+    if animal == "All":
+        data_new2_filter = data_new2[((data_new2['intake_year'] >= year_range[0]) &  
+        (data_new2['intake_year'] <= year_range[1]))]
+        title = animal + " animals intake by Week Day"
+    else :
+        data_new2_filter = data_new2[((data_new2['intake_year'] >= year_range[0]) &  
+        (data_new2['intake_year'] <= year_range[1])
+        & (data_new2['animal_type'] == animal))]
+        title = animal + " intake by Week Day"
 
     data_new2_filter = data_new2_filter.groupby(by = "intake_weekday").agg({"count":"sum"}).reset_index()
     data_new2_filter.columns = ["intake_weekday","count"]
 
-
+    
     chart = alt.Chart(data_new2_filter).mark_bar(size=40).encode(
             alt.X('intake_weekday:N', title = 'Week Day',sort=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]),
-            alt.Y('count:Q', title = 'Animal Count')
-        ).properties(title='Animal Intake in Shelter by Week Day',
+            alt.Y('count:Q', title = 'Animal Count'),
+            tooltip=['intake_weekday','count']
+        ).properties(title=title,
                     width=300, height=250).configure_axisX(labelFontSize=12,
     titleFontSize=15,
     labelAngle = 45).configure_axisY(labelFontSize=12,
-    titleFontSize=15).configure_title(fontSize=20)
+    titleFontSize=15).configure_title(fontSize=17)
     
     return chart
 
 def make_plot_3(year_range = [2013,2016], animal = "Dog"):
 
-    data_new3_filter = data_new3[((data_new3['outake_year'] >= year_range[0]) &  
-    (data_new3['outake_year'] <= year_range[1])
-    & (data_new3['animal_type'] == animal))]
+
+    if animal == "All":
+        data_new3_filter = data_new3[((data_new3['outake_year'] >= year_range[0]) &  
+        (data_new3['outake_year'] <= year_range[1]))]
+        title = animal + " animals outake by Week Day"
+
+    else :
+        data_new3_filter = data_new3[((data_new3['outake_year'] >= year_range[0]) &  
+        (data_new3['outake_year'] <= year_range[1])
+        & (data_new3['animal_type'] == animal))]
+        title = animal + " outake by Week Day"
 
     data_new3_filter = data_new3_filter.groupby(by = "outcome_weekday").agg({"count":"sum"}).reset_index()
     data_new3_filter.columns = ["outcome_weekday","count"]
 
     chart = alt.Chart(data_new3_filter).mark_bar(size=40).encode(
             alt.X('outcome_weekday:N', title = 'Week Day',sort=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]),
-            alt.Y('count:Q', title = 'Animal Count')
-        ).properties(title='Animal Outake in Shelter by Week Day',
+            alt.Y('count:Q', title = 'Animal Count'),
+            tooltip=['outcome_weekday','count']
+        ).properties(title=title,
                     width=300, height=250).configure_axisX(labelFontSize=12,
     titleFontSize=15,
     labelAngle = 45).configure_axisY(labelFontSize=12,
-    titleFontSize=15).configure_title(fontSize=20)
+    titleFontSize=15).configure_title(fontSize=17)
 
     
     return chart
@@ -267,10 +284,11 @@ dbc.Container
                             dcc.Dropdown(
                             id='plot23-drop',
                             options=[
+                                 {'label': 'All', 'value': 'All'},
                                 {'label': 'Dog', 'value': 'Dog'},
                                 {'label': 'Cat', 'value': 'Cat'},
                                 {'label': 'Bird', 'value': 'Bird'},
-                                {'label': 'Other', 'value': 'Other'}
+                                {'label': 'Other', 'value': 'Other'}                                
                                 # Missing option here
                             ],
                             value='Dog',
