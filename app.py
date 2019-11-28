@@ -59,31 +59,32 @@ def make_plot_1(year_range = [2013,2016]):
     
     data_new_filter = data_new[((data_new['intake_year'] >= year_range[0]) & (data_new['intake_year'] <= year_range[1]))]
     chart = alt.Chart(data_new_filter).mark_line().encode(
-        alt.X("intake_monthyear:N", title = "Time (Month-Year)"),
+        alt.X("yearmonth(intake_monthyear):O", title = "Time (Month-Year)"),
         alt.Y('count', title="Count"),
         alt.Color("Type")
         )
     data_new_filter1 = data_new1[data_new1['outcome_monthyear'] != "2018-04"]
     data_new_filter1 = data_new_filter1[((data_new_filter1['outake_year'] >= year_range[0]) & (data_new_filter1['outake_year'] <= year_range[1]))]
     chart1 = alt.Chart(data_new_filter1).mark_line().encode(
-        alt.X("outcome_monthyear:N", title = "Time (Month-Year)"),
+        alt.X("yearmonth(outcome_monthyear):O", title = "Time (Month-Year)"),
         alt.Y('count', title="Count"),
         alt.Color("Type")
         )
 
     return ((chart + chart1).properties(
-        title='Trend of number of intake and outake of animals in shelter with time',
+        title='Trend in Intakes and Out-takes of Animals at AAC',
         width=900, height=300).configure_axisX(
-            labelFontSize=12,
-            titleFontSize=15,
-            labelAngle = 90
+            labelFontSize=14,
+            titleFontSize=18,
+            labelAngle = 45,
+            labelOverlap=True
             ).configure_axisY(
-            labelFontSize=12,
-            titleFontSize=15
+            labelFontSize=14,
+            titleFontSize=18
             ).configure_title(
             fontSize=20
             ).configure_legend(
-            labelFontSize=15,
+            labelFontSize=18,
             titleFontSize=20
             )
         )
