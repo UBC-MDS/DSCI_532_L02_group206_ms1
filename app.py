@@ -38,14 +38,10 @@ data_new1['outake_year'] = pd.DatetimeIndex(data_new1['outcome_monthyear']).year
 # Plot 2
 data_new2 = df.groupby(by = ["intake_year","animal_type","intake_weekday","intake_month"]).agg({"breed":"count"}).reset_index()
 data_new2.columns = ["intake_year","animal_type","intake_weekday","intake_month","count"]
-#data_new2['intake_year'] = pd.DatetimeIndex(data_new2['intake_monthyear']).year
-# print (data_new2.head())
 
 # Plot 3
 data_new3 = df.groupby(by = ["outake_year","animal_type","outcome_weekday","outake_month"]).agg({"breed":"count"}).reset_index()
 data_new3.columns = ["outake_year","animal_type","outcome_weekday","outake_month","count"]
-#data_new3['outake_year'] = pd.DatetimeIndex(data_new3['outcome_monthyear']).year
-# print (data_new3.head())
 
 # Plot 4
 data_new4 = df[["intake_year","animal_type", "age_upon_intake_(days)"]].copy()
@@ -60,23 +56,22 @@ data_new5.rename(columns={'total_time_in_shelter_days':'Days in Shelter'}, inpla
 
 def make_plot_1(year_range = [2013,2016]):
 
-    
     data_new_filter = data_new[((data_new['intake_year'] >= year_range[0]) & (data_new['intake_year'] <= year_range[1]))]
     chart = alt.Chart(data_new_filter).mark_line().encode(
-        alt.X("yearmonth(intake_monthyear):O", title = "Time (Month-Year)"),
+        alt.X("yearmonth(intake_monthyear):O", title = None),
         alt.Y('count', title="Count"),
         alt.Color("Type")
         )
     data_new_filter1 = data_new1[data_new1['outcome_monthyear'] != "2018-04"]
     data_new_filter1 = data_new_filter1[((data_new_filter1['outake_year'] >= year_range[0]) & (data_new_filter1['outake_year'] <= year_range[1]))]
     chart1 = alt.Chart(data_new_filter1).mark_line().encode(
-        alt.X("yearmonth(outcome_monthyear):O", title = "Time (Month-Year)"),
+        alt.X("yearmonth(outcome_monthyear):O", title = None),
         alt.Y('count', title="Count"),
         alt.Color("Type")
         )
 
     return ((chart + chart1).properties(
-        title='Trend in Intakes and Out-takes of Animals at AAC',
+        title='Intakes & Out-takes Trends of Animals at AAC',
         width=950, height=300).configure_axisX(
             labelFontSize=14,
             titleFontSize=18,
@@ -353,7 +348,7 @@ dbc.Container
                                 {'label': 'Other', 'value': 'Other'}                                
                                 # Missing option here
                             ],
-                            value='Dog',
+                            value='All',
                             style={"width":'80%', "margin-left":"15px","margin-top":"5px"}
                                 ),                   
                          ], style={'textAlign': 'left',"margin-top":"2px","margin-right":"15px",
