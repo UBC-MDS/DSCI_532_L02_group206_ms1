@@ -2,7 +2,7 @@
 Milestone 1 Repository - Dashboard in Python with Altair
 
 # Animal Shelter App Description
-Our team's proposed app is targeted at shelter staff, and aims to provide users with salient insights behind Austin Animal Shelter. By using our app, they can make informed decisions about their operational planning and budgeting, and ensure the sustainability of the shelter.
+Our team's proposed app is targeted at shelter staff, and aims to provide users with salient insights behind Austin Animal Center. By using our app, they can make informed decisions about their operational planning and budgeting, and ensure the sustainability of the shelter.
 
 <p align="center">
 <img src="./img/general_animal_shelter.png" alt="Animal Shelter" width="400" /p> 
@@ -17,9 +17,10 @@ The app brings the user to a full view of 5 charts relevant to the animal intake
 
 - Plots 2 and 3 are bar charts representing the “Average Pets Intake and Outtake Counts per Weekday”. Both graphs share common filters as per:
     - Animal Type (ie Cat, Dog, All etc) via __Drop list__ selection
+    - Month Filtering (ie Jan, Feb, ..., Dec) via __Drop list__ selection
 
 - The 4th plot is a histogram chart representing the “Intake Age Distribution” for each animal type. Each animal’s histogram will be overlayed on top of each other with translucent opacity. 
-    - Inclusion/exclusion of Animal Type (Cat, Dog, etc) can be done via __Radio buttons__
+    - Selection of Animal Type (Cat, Dog, etc) can be done via __Radio buttons__
 
 - The 5th plot is a boxplot chart representing the “Time Spent in Shelter (Days)” for all animal types. This can be further filtered by:
     - Health Condition at Intake (Healthy, Injured, Aged, Sick, Feral, Pregnant, Nursing, Other) via __Radio Buttons__

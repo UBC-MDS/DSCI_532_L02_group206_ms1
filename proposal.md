@@ -22,3 +22,10 @@ By logging on to the app, Peter can glance at the overall intake and outtake tre
 Below the top graph, Peter is presented with an overview of the average intake and outtake counts on a weekday basis. By filtering across animals, he notices that he should request for more volunteers with cat-handling experience from Mondays to Thursdays. Additionally, based on the age distributions of intake animals, Peter realizes that the ages of the intake cats are likely to be highly concentrated at young ages. This aids his planning of volunteers as he considers enlisting volunteers who are experienced with kittens.
 
 Peter is also presented with an overall view of the time spent in shelter before outtake for each animal type. He postulates that animals that were injured at point of intake tend to spend a longer time in the shelter compared to healthy animals, and can verify that with some selection filtering. He easily understands which animal is the least likely to get adopted and can either improve marketing adoption outreach for that animal type or plan his resource budget to accommodate the operational demands.
+
+The general research questions we want to enable users like Peter to answer with our application are as follows:
+- What are the seasonality trends of animal intake and outtake volumes across different time periods?
+- What is the breakdown of the average intake and outtake volumes across the week for a specific month and animal type?
+- What is the age distribution of different animals at point of intake?
+- Do different animals experience different extents of time spent in shelter before eventual outtake? 
+- Does the health condition of the animal at point of intake affect their time spent in shelter?
