@@ -346,7 +346,7 @@ dbc.Container
                                 {'label': 'Cat', 'value': 'Cat'},
                                 {'label': 'Bird', 'value': 'Bird'},
                                 {'label': 'Other', 'value': 'Other'}                                
-                                # Missing option here
+
                             ],
                             value='All',
                             style={"width":'80%', "margin-left":"15px","margin-top":"5px"}
@@ -417,43 +417,40 @@ dbc.Container
                         # Buffer space between
                         html.Div([], style={
                                             #"background":"black",
-                                            "width":"75px",
+                                            "width":"60px",
                                             "height":"100px", 
                                             "display":"inline-block",'vertical-align':'top',}),
 
-                        # Radio buttons for Plot 5
+                        # Droplist for Plot 5
                         html.Div([
-                            dcc.Markdown("Intake Condition", style={"textAlign":"right"}),
-                            
-                            html.Div([
-
-                                # Buffer space between
-                                html.Div([], style={
-                                                #"background":"black",
-                                                "width":"30px",
-                                                "height":"1px", 
-                                                "display":"inline-block",'vertical-align':'top'}),
+                               
 
                                 html.Div([
-                                    dcc.RadioItems(
-                                        id='plot5-radio',
+                                        html.Div([
+                                        html.Label("Select Intake Health Condition", style={"margin-left": "00px"})]),
+
+                                        dcc.Dropdown(
+                                        id='plot5-drop',
                                         options=[
-                                                    {'label': 'All', 'value': 'All'},
-                                                    {'label': 'Healthy', 'value': 'Normal'},
-                                                    {'label': 'Injured', 'value': 'Injured'},
-                                                    {'label': 'Aged', 'value': 'Aged'},
-                                                    {'label': 'Sick', 'value': 'Sick'},
-                                                    {'label': 'Feral', 'value': 'Feral'},
-                                                    {'label': 'Pregnant', 'value': 'Pregnant'},
-                                                    {'label': 'Nursing', 'value': 'Nursing'},
-                                                    {'label': 'Other', 'value': 'Other'},
-                                                    
-                                                ],
+                                            {'label': 'All', 'value': 'All'},
+                                            {'label': 'Healthy', 'value': 'Normal'},
+                                            {'label': 'Injured', 'value': 'Injured'},
+                                            {'label': 'Aged', 'value': 'Aged'},
+                                            {'label': 'Sick', 'value': 'Sick'},
+                                            {'label': 'Feral', 'value': 'Feral'},
+                                            {'label': 'Pregnant', 'value': 'Pregnant'},
+                                            {'label': 'Nursing', 'value': 'Nursing'},
+                                            {'label': 'Other', 'value': 'Other'}                             
+
+                                        ],
                                         value='All',
-                                        style={"display":"table"}
-                                    ),
-                                ],style={"width":"80px","display":"inline-block", 'vertical-align':'top'})
-                            ], )
+                                        style={"width":'100%', "margin-left":"0px","margin-top":"5px"}
+                                            ),                   
+                                    ], style={'textAlign': 'center',"margin-top":"0px","margin-right":"15px","padding": "0px"}
+                                )
+                                
+                                
+                                
                         ], style={"display":"inline-block", "width":"35%",'vertical-align':'top'}),
 
                     ], width = {"size":4, "offset":0}, style={"padding":"0"}),
@@ -518,7 +515,7 @@ def update_plot4(year_range, animal):
 
 @app.callback(
     dash.dependencies.Output('plot5', 'srcDoc'),
-    [dash.dependencies.Input('my-range-slider', 'value'),dash.dependencies.Input('plot5-radio', 'value')])
+    [dash.dependencies.Input('my-range-slider', 'value'),dash.dependencies.Input('plot5-drop', 'value')])
 def update_plot5(year_range, health_condition):
     
     update_plot5 = make_plot_5(year_range, health_condition).to_html()
