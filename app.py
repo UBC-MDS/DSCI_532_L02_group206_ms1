@@ -237,30 +237,12 @@ dbc.Container
             ], style={"width":"100%"}),
 
             html.Br(),
+            html.Br(),
 
-            dbc.Row([
-
-                html.Div([
-                    # Plot 1
-                    html.Iframe(
-                    sandbox='allow-scripts',
-                    id='trend_plot',
-                    height='450',
-                    width='1300',
-                    style={'margin': 'auto',
-                            'border-width':'0'},
-                    ################ The magic happens here
-                    srcDoc = make_plot_1().to_html()
-                    ################ The magic happens here
-                    ),
-                ]),
-            ],style={"width":"100%"}, align="center"
-            ),
-            
             html.Div([
-                html.H3("Year Range", style={"textAlign":"center"}),
+                html.H3("Select Animal Intake Year Range", style={"textAlign":"center"}),
             ]),
-
+            html.Br(),
 
             dbc.Row([
                 # Time Slider Common Filter
@@ -285,7 +267,32 @@ dbc.Container
 
             html.Br(),
             html.Br(),
-            html.Br(),
+            
+            dbc.Row([
+
+                html.Div([
+                    # Plot 1
+                    html.Iframe(
+                    sandbox='allow-scripts',
+                    id='trend_plot',
+                    height='450',
+                    width='1300',
+                    style={'margin': 'auto',
+                            'border-width':'0'},
+                    ################ The magic happens here
+                    srcDoc = make_plot_1().to_html()
+                    ################ The magic happens here
+                    ),
+                ])
+            ],style={"width":"100%"}, align="center"
+            ),
+
+            # buffer space
+            dbc.Row([
+                html.Br(),
+                html.Br(),
+                html.Br(),
+            ],),
 
             dbc.Row([                 
                     # Plot 2
