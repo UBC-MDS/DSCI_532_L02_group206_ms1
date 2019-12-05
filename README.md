@@ -1,5 +1,8 @@
-# DSCI_532_L02_group206_ms1
-Milestone 1 Repository - Dashboard in Python with Altair
+# Motivations
+This project was created as part of a collaborative visualisation project under the UBC Masters of Data Science program for DSCI 532. Our team comprises of Keanna Knebel, Aman Kumar Garg, and Kenneth Foo.
+
+A deployed version of the app can be found here:
+https://austin-animal-center-app.herokuapp.com/
 
 # Animal Shelter App Description
 Our team's proposed app is targeted at shelter staff, and aims to provide users with salient insights behind Austin Animal Center. By using our app, they can make informed decisions about their operational planning and budgeting, and ensure the sustainability of the shelter.

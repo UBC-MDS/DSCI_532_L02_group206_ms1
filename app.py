@@ -93,7 +93,7 @@ def make_plot_1(year_range = [2013,2016]):
             )
         )
 
-def make_plot_2(year_range = [2013,2016], animal = "Dog", month="All"):
+def make_plot_2(year_range = [2013,2016], animal = "Dog", month=0):
 
 
     if animal == "All":
@@ -106,7 +106,7 @@ def make_plot_2(year_range = [2013,2016], animal = "Dog", month="All"):
         & (data_new2['animal_type'] == animal))]
         title = "Average " + animal.lower() + " intake by Week Day"
 
-    if month != "All":
+    if month != 0:
 
         data_new2_filter = data_new2_filter[data_new2_filter['intake_month'] == month]
 
@@ -127,7 +127,7 @@ def make_plot_2(year_range = [2013,2016], animal = "Dog", month="All"):
     
     return chart
 
-def make_plot_3(year_range = [2013,2016], animal = "Dog", month = "All"):
+def make_plot_3(year_range = [2013,2016], animal = "Dog", month = 0):
 
 
     if animal == "All":
@@ -141,7 +141,7 @@ def make_plot_3(year_range = [2013,2016], animal = "Dog", month = "All"):
         & (data_new3['animal_type'] == animal))]
         title = "Average " + animal.lower() + " outake by Week Day"
     
-    if month != "All":
+    if month != 0:
 
         data_new3_filter = data_new3_filter[data_new3_filter['outake_month'] == month]
 
@@ -225,6 +225,7 @@ def make_plot_5(year_range = [2013, 2016], intake_health_condition = "Healthy"):
     
     return chart
 
+list_m = ["All","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 ############### APP LAYOUT BEGINS ##############
 
 app.layout = html.Div([
@@ -310,23 +311,8 @@ dbc.Container
                             html.Label("Select Month", style={"margin-left": "60px"})]),
                             dcc.Dropdown(
                             id='plot23-drop-month',
-                            options=[
-                                 {'label': 'All', 'value': 'All'},
-                                {'label': 'Jan', 'value': 1},
-                                {'label': 'Feb', 'value': 2},
-                                {'label': 'Mar', 'value': 3},
-                                {'label': 'Apr', 'value': 4},
-                                {'label': 'May', 'value': 5},
-                                {'label': 'Jun', 'value': 6},
-                                {'label': 'Jul', 'value': 7},
-                                {'label': 'Aug', 'value': 8},
-                                {'label': 'Sep', 'value': 9},
-                                {'label': 'Oct', 'value': 10},
-                                {'label': 'Nov', 'value': 11},
-                                {'label': 'Dec', 'value': 12}                                
-                                # Missing option here
-                            ],
-                            value='All',
+                            options=[{"label":j, "value":i} for i,j in enumerate(list_m)],
+                            value=0,
                             style={"width":'75%', "margin-left":"35px","margin-top":"5px"}
                                 ),                   
                          ], style={'textAlign': 'left',"margin-top":"2px","margin-left":"5px",
@@ -346,7 +332,7 @@ dbc.Container
                                 {'label': 'Cat', 'value': 'Cat'},
                                 {'label': 'Bird', 'value': 'Bird'},
                                 {'label': 'Other', 'value': 'Other'}                                
-                                # Missing option here
+
                             ],
                             value='All',
                             style={"width":'80%', "margin-left":"15px","margin-top":"5px"}
@@ -417,43 +403,40 @@ dbc.Container
                         # Buffer space between
                         html.Div([], style={
                                             #"background":"black",
-                                            "width":"75px",
+                                            "width":"60px",
                                             "height":"100px", 
                                             "display":"inline-block",'vertical-align':'top',}),
 
-                        # Radio buttons for Plot 5
+                        # Droplist for Plot 5
                         html.Div([
-                            dcc.Markdown("Intake Condition", style={"textAlign":"right"}),
-                            
-                            html.Div([
-
-                                # Buffer space between
-                                html.Div([], style={
-                                                #"background":"black",
-                                                "width":"30px",
-                                                "height":"1px", 
-                                                "display":"inline-block",'vertical-align':'top'}),
+                               
 
                                 html.Div([
-                                    dcc.RadioItems(
-                                        id='plot5-radio',
+                                        html.Div([
+                                        html.Label("Select Intake Health Condition", style={"margin-left": "00px"})]),
+
+                                        dcc.Dropdown(
+                                        id='plot5-drop',
                                         options=[
-                                                    {'label': 'All', 'value': 'All'},
-                                                    {'label': 'Healthy', 'value': 'Normal'},
-                                                    {'label': 'Injured', 'value': 'Injured'},
-                                                    {'label': 'Aged', 'value': 'Aged'},
-                                                    {'label': 'Sick', 'value': 'Sick'},
-                                                    {'label': 'Feral', 'value': 'Feral'},
-                                                    {'label': 'Pregnant', 'value': 'Pregnant'},
-                                                    {'label': 'Nursing', 'value': 'Nursing'},
-                                                    {'label': 'Other', 'value': 'Other'},
-                                                    
-                                                ],
+                                            {'label': 'All', 'value': 'All'},
+                                            {'label': 'Healthy', 'value': 'Normal'},
+                                            {'label': 'Injured', 'value': 'Injured'},
+                                            {'label': 'Aged', 'value': 'Aged'},
+                                            {'label': 'Sick', 'value': 'Sick'},
+                                            {'label': 'Feral', 'value': 'Feral'},
+                                            {'label': 'Pregnant', 'value': 'Pregnant'},
+                                            {'label': 'Nursing', 'value': 'Nursing'},
+                                            {'label': 'Other', 'value': 'Other'}                             
+
+                                        ],
                                         value='All',
-                                        style={"display":"table"}
-                                    ),
-                                ],style={"width":"80px","display":"inline-block", 'vertical-align':'top'})
-                            ], )
+                                        style={"width":'100%', "margin-left":"0px","margin-top":"5px"}
+                                            ),                   
+                                    ], style={'textAlign': 'center',"margin-top":"0px","margin-right":"15px","padding": "0px"}
+                                )
+                                
+                                
+                                
                         ], style={"display":"inline-block", "width":"35%",'vertical-align':'top'}),
 
                     ], width = {"size":4, "offset":0}, style={"padding":"0"}),
@@ -518,7 +501,7 @@ def update_plot4(year_range, animal):
 
 @app.callback(
     dash.dependencies.Output('plot5', 'srcDoc'),
-    [dash.dependencies.Input('my-range-slider', 'value'),dash.dependencies.Input('plot5-radio', 'value')])
+    [dash.dependencies.Input('my-range-slider', 'value'),dash.dependencies.Input('plot5-drop', 'value')])
 def update_plot5(year_range, health_condition):
     
     update_plot5 = make_plot_5(year_range, health_condition).to_html()
