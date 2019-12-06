@@ -11,7 +11,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
-app.title = 'Dash app with pure Altair HTML'
+app.title = 'Animal Intake and Outtake at AAC'
 
 alt.data_transformers.disable_max_rows()
 
@@ -343,10 +343,19 @@ app.layout = html.Div([
 
 dbc.Container
     ([
+            html.Hr([],style={'height': 10,'background-color':'#2B3856', 'marginBottom': 10, 'marginTop': 50}),
+
             html.Div([
                 # Logo
                 html.Img(src='https://raw.githubusercontent.com/UBC-MDS/DSCI_532_L02_group206_ms1/master/img/aac_logo.jpg', style={"display":"block", "margin":"auto"}),
-            ], style={"width":"100%"}),
+            ]),
+
+            html.Div([
+                # Main app title 
+                html.H1("Animals Sheltered at the Austin Animal Center", style={"textAlign":"center"}),
+            ], style={'marginBottom': 10, 'marginTop': 25}),
+
+            html.Hr([],style={'height': 10,'background-color':'#2B3856'}),
 
             html.Br(),
             html.Br(),
