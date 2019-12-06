@@ -55,6 +55,20 @@ data_new5.rename(columns={'total_time_in_shelter_days':'Days in Shelter'}, inpla
 ######### Create plotting functions ##########
 
 def make_plot_1(year_range = [2013,2016]):
+    """
+    Creates plot 1 which is intake and outtake volume trends for animals over time period.
+
+    Parameters
+    ----------
+    year_range : list
+           elements of time range for chart
+    
+    Returns
+    -------
+    altair chart
+        altair chart object for html embedding
+
+    """
 
     data_new_filter = data_new[((data_new['intake_year'] >= year_range[0]) & (data_new['intake_year'] <= year_range[1]))]
     chart = alt.Chart(data_new_filter).mark_line().encode(
@@ -94,7 +108,24 @@ def make_plot_1(year_range = [2013,2016]):
         )
 
 def make_plot_2(year_range = [2013,2016], animal = "Dog", month=0):
+    """
+    Creates plot 2 which is average weekday intake volumes for animals in certain time periods.
 
+    Parameters
+    ----------
+    year_range : list
+           elements of time range for chart
+    animal : string
+           interactive app droplist selection for chart filtering
+    month : int
+           interactive app droplist selection for chart filtering
+
+    Returns
+    -------
+    altair chart
+        altair chart object for html embedding
+
+    """
 
     if animal == "All":
         data_new2_filter = data_new2[((data_new2['intake_year'] >= year_range[0]) &  
@@ -128,7 +159,24 @@ def make_plot_2(year_range = [2013,2016], animal = "Dog", month=0):
     return chart
 
 def make_plot_3(year_range = [2013,2016], animal = "Dog", month = 0):
+    """
+    Creates plot 3 which is average weekday outtake volumes for animals in certain time periods.
 
+    Parameters
+    ----------
+    year_range : list
+           elements of time range for chart
+    animal : string
+           interactive app droplist selection for chart filtering
+    month : int
+           interactive app droplist selection for chart filtering
+
+    Returns
+    -------
+    altair chart
+        altair chart object for html embedding
+
+    """
 
     if animal == "All":
         data_new3_filter = data_new3[((data_new3['outtake_year'] >= year_range[0]) &  
@@ -179,7 +227,6 @@ def make_plot_4(year_range = [2013, 2016], animal = "All"):
         altair chart object for html embedding
 
     """
-
 
     # Filtering for intake year via common filter 
     if animal == "All":
