@@ -19,10 +19,10 @@ df = pd.read_csv("https://raw.githubusercontent.com/UBC-MDS/DSCI_532_L02_group20
 
 # Preprocessing
 df['intake_year'] = pd.DatetimeIndex(df['intake_monthyear']).year
-df['outake_year'] = pd.DatetimeIndex(df['outcome_monthyear']).year
+df['outtake_year'] = pd.DatetimeIndex(df['outcome_monthyear']).year
 
 df['intake_month'] = pd.DatetimeIndex(df['intake_monthyear']).month
-df['outake_month'] = pd.DatetimeIndex(df['outcome_monthyear']).month
+df['outtake_month'] = pd.DatetimeIndex(df['outcome_monthyear']).month
 
 # Plot 1
 data_new = df.groupby(by = "intake_monthyear").agg({"animal_type":"count"}).reset_index()
@@ -32,16 +32,16 @@ data_new['intake_year'] = pd.DatetimeIndex(data_new['intake_monthyear']).year
 
 data_new1 = df.groupby(by = "outcome_monthyear").agg({"animal_type":"count"}).reset_index()
 data_new1.columns = ["outcome_monthyear","count"]
-data_new1["Type"] = "Outake"
-data_new1['outake_year'] = pd.DatetimeIndex(data_new1['outcome_monthyear']).year
+data_new1["Type"] = "Outtake"
+data_new1['outtake_year'] = pd.DatetimeIndex(data_new1['outcome_monthyear']).year
 
 # Plot 2
 data_new2 = df.groupby(by = ["intake_year","animal_type","intake_weekday","intake_month"]).agg({"breed":"count"}).reset_index()
 data_new2.columns = ["intake_year","animal_type","intake_weekday","intake_month","count"]
 
 # Plot 3
-data_new3 = df.groupby(by = ["outake_year","animal_type","outcome_weekday","outake_month"]).agg({"breed":"count"}).reset_index()
-data_new3.columns = ["outake_year","animal_type","outcome_weekday","outake_month","count"]
+data_new3 = df.groupby(by = ["outtake_year","animal_type","outcome_weekday","outtake_month"]).agg({"breed":"count"}).reset_index()
+data_new3.columns = ["outtake_year","animal_type","outcome_weekday","outtake_month","count"]
 
 # Plot 4
 data_new4 = df[["intake_year","animal_type", "age_upon_intake_(days)"]].copy()
@@ -63,7 +63,7 @@ def make_plot_1(year_range = [2013,2016]):
         alt.Color("Type")
         )
     data_new_filter1 = data_new1[data_new1['outcome_monthyear'] != "2018-04"]
-    data_new_filter1 = data_new_filter1[((data_new_filter1['outake_year'] >= year_range[0]) & (data_new_filter1['outake_year'] <= year_range[1]))]
+    data_new_filter1 = data_new_filter1[((data_new_filter1['outtake_year'] >= year_range[0]) & (data_new_filter1['outtake_year'] <= year_range[1]))]
     chart1 = alt.Chart(data_new_filter1).mark_line().encode(
         alt.X("yearmonth(outcome_monthyear):O", title = None),
         alt.Y('count', title="Count"),
@@ -71,7 +71,7 @@ def make_plot_1(year_range = [2013,2016]):
         )
 
     return ((chart + chart1).properties(
-        title='Intakes & Out-takes Trends of Animals at AAC',
+        title='Trends in Intakes & Outtakes of Shelter Animals',
         width=950, height=300).configure_axisX(
             labelFontSize=14,
             titleFontSize=18,
@@ -93,20 +93,20 @@ def make_plot_1(year_range = [2013,2016]):
             )
         )
 
-def make_plot_2(year_range = [2013,2016], animal = "Dog", month="All"):
+def make_plot_2(year_range = [2013,2016], animal = "Dog", month=0):
 
 
     if animal == "All":
         data_new2_filter = data_new2[((data_new2['intake_year'] >= year_range[0]) &  
         (data_new2['intake_year'] <= year_range[1]))]
-        title = "Average " + animal.lower() + " animals intake by Week Day"
+        title = "Average Animal Intake by Week Day"
     else :
         data_new2_filter = data_new2[((data_new2['intake_year'] >= year_range[0]) &  
         (data_new2['intake_year'] <= year_range[1])
         & (data_new2['animal_type'] == animal))]
-        title = "Average " + animal.lower() + " intake by Week Day"
+        title = "Average " + animal + " Intake by Week Day"
 
-    if month != "All":
+    if month != 0:
 
         data_new2_filter = data_new2_filter[data_new2_filter['intake_month'] == month]
 
@@ -117,7 +117,7 @@ def make_plot_2(year_range = [2013,2016], animal = "Dog", month="All"):
     
     chart = alt.Chart(data_new2_filter).mark_bar(size=40).encode(
             alt.X('intake_weekday:N', title = 'Week Day',sort=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]),
-            alt.Y('count:Q', title = 'Animal Count'),
+            alt.Y('count:Q', title = 'Count'),
             tooltip=['intake_weekday','count']
         ).properties(title=title,
                     width=300, height=250).configure_axisX(labelFontSize=12,
@@ -127,23 +127,23 @@ def make_plot_2(year_range = [2013,2016], animal = "Dog", month="All"):
     
     return chart
 
-def make_plot_3(year_range = [2013,2016], animal = "Dog", month = "All"):
+def make_plot_3(year_range = [2013,2016], animal = "Dog", month = 0):
 
 
     if animal == "All":
-        data_new3_filter = data_new3[((data_new3['outake_year'] >= year_range[0]) &  
-        (data_new3['outake_year'] <= year_range[1]))]
-        title = "Average " + animal.lower() + " animals outake by Week Day"
+        data_new3_filter = data_new3[((data_new3['outtake_year'] >= year_range[0]) &  
+        (data_new3['outtake_year'] <= year_range[1]))]
+        title = "Average Animal Outtake by Week Day"
 
     else :
-        data_new3_filter = data_new3[((data_new3['outake_year'] >= year_range[0]) &  
-        (data_new3['outake_year'] <= year_range[1])
+        data_new3_filter = data_new3[((data_new3['outtake_year'] >= year_range[0]) &  
+        (data_new3['outtake_year'] <= year_range[1])
         & (data_new3['animal_type'] == animal))]
-        title = "Average " + animal.lower() + " outake by Week Day"
+        title = "Average " + animal + " Outtake by Week Day"
     
-    if month != "All":
+    if month != 0:
 
-        data_new3_filter = data_new3_filter[data_new3_filter['outake_month'] == month]
+        data_new3_filter = data_new3_filter[data_new3_filter['outtake_month'] == month]
 
     data_new3_filter = data_new3_filter.groupby(by = "outcome_weekday").agg({"count":"mean"}).reset_index()
     data_new3_filter.columns = ["outcome_weekday","count"]
@@ -151,7 +151,7 @@ def make_plot_3(year_range = [2013,2016], animal = "Dog", month = "All"):
 
     chart = alt.Chart(data_new3_filter).mark_bar(size=40).encode(
             alt.X('outcome_weekday:N', title = 'Week Day',sort=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]),
-            alt.Y('count:Q', title = 'Animal Count'),
+            alt.Y('count:Q', title = 'Count'),
             tooltip=['outcome_weekday','count']
         ).properties(title=title,
                     width=300, height=250).configure_axisX(labelFontSize=12,
@@ -214,7 +214,7 @@ def make_plot_5(year_range = [2013, 2016], intake_health_condition = "Healthy"):
     chart = alt.Chart(df5).mark_boxplot(size=40,extent='min-max').encode(
         alt.X("animal_type:N", title = "Animal Type"),
         alt.Y('Days in Shelter:Q', title="Days",scale=alt.Scale(type='log'))
-        ).properties(title='Time spent in shelter',
+        ).properties(title='Time Spent in Shelter',
                     width=300, height=250
         ).configure_axisX(labelFontSize=12,
                     titleFontSize=15,
@@ -225,6 +225,7 @@ def make_plot_5(year_range = [2013, 2016], intake_health_condition = "Healthy"):
     
     return chart
 
+list_m = ["All","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 ############### APP LAYOUT BEGINS ##############
 
 app.layout = html.Div([
@@ -317,23 +318,8 @@ dbc.Container
                             html.Label("Select Month", style={"margin-left": "60px"})]),
                             dcc.Dropdown(
                             id='plot23-drop-month',
-                            options=[
-                                 {'label': 'All', 'value': 'All'},
-                                {'label': 'Jan', 'value': 1},
-                                {'label': 'Feb', 'value': 2},
-                                {'label': 'Mar', 'value': 3},
-                                {'label': 'Apr', 'value': 4},
-                                {'label': 'May', 'value': 5},
-                                {'label': 'Jun', 'value': 6},
-                                {'label': 'Jul', 'value': 7},
-                                {'label': 'Aug', 'value': 8},
-                                {'label': 'Sep', 'value': 9},
-                                {'label': 'Oct', 'value': 10},
-                                {'label': 'Nov', 'value': 11},
-                                {'label': 'Dec', 'value': 12}                                
-                                # Missing option here
-                            ],
-                            value='All',
+                            options=[{"label":j, "value":i} for i,j in enumerate(list_m)],
+                            value=0,
                             style={"width":'75%', "margin-left":"35px","margin-top":"5px"}
                                 ),                   
                          ], style={'textAlign': 'left',"margin-top":"2px","margin-left":"5px",
