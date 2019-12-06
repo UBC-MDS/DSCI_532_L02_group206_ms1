@@ -163,6 +163,23 @@ def make_plot_3(year_range = [2013,2016], animal = "Dog", month = 0):
     return chart
 
 def make_plot_4(year_range = [2013, 2016], animal = "All"):
+    """
+    Creates plot 4 which is age distribution bar chart/histogram
+
+    Parameters
+    ----------
+    year_range : list
+           elements of time range for chart
+    animal : string
+           interactive app droplist selection for chart filtering
+
+    Returns
+    -------
+    altair chart
+        altair chart object for html embedding
+
+    """
+
 
     # Filtering for intake year via common filter 
     if animal == "All":
@@ -197,6 +214,22 @@ def make_plot_4(year_range = [2013, 2016], animal = "All"):
     return chart
 
 def make_plot_5(year_range = [2013, 2016], intake_health_condition = "Healthy"):
+    """
+    Creates plot 5 which is boxplot chart for animal time spent in shelter.
+
+    Parameters
+    ----------
+    year_range : list
+           elements of time range for chart
+    intake_health_condition : string
+           interactive app droplist selection for chart filtering
+
+    Returns
+    -------
+    altair chart
+        altair chart object for html embedding
+
+    """
 
     # Filtering for intake year via common filter 
     if intake_health_condition == "All":
@@ -238,30 +271,12 @@ dbc.Container
             ], style={"width":"100%"}),
 
             html.Br(),
+            html.Br(),
 
-            dbc.Row([
-
-                html.Div([
-                    # Plot 1
-                    html.Iframe(
-                    sandbox='allow-scripts',
-                    id='trend_plot',
-                    height='450',
-                    width='1300',
-                    style={'margin': 'auto',
-                            'border-width':'0'},
-                    ################ The magic happens here
-                    srcDoc = make_plot_1().to_html()
-                    ################ The magic happens here
-                    ),
-                ]),
-            ],style={"width":"100%"}, align="center"
-            ),
-            
             html.Div([
-                html.H3("Year Range", style={"textAlign":"center"}),
+                html.H3("Select Animal Intake Year Range", style={"textAlign":"center"}),
             ]),
-
+            html.Br(),
 
             dbc.Row([
                 # Time Slider Common Filter
@@ -286,7 +301,32 @@ dbc.Container
 
             html.Br(),
             html.Br(),
-            html.Br(),
+            
+            dbc.Row([
+
+                html.Div([
+                    # Plot 1
+                    html.Iframe(
+                    sandbox='allow-scripts',
+                    id='trend_plot',
+                    height='450',
+                    width='1300',
+                    style={'margin': 'auto',
+                            'border-width':'0'},
+                    ################ The magic happens here
+                    srcDoc = make_plot_1().to_html()
+                    ################ The magic happens here
+                    ),
+                ])
+            ],style={"width":"100%"}, align="center"
+            ),
+
+            # buffer space
+            dbc.Row([
+                html.Br(),
+                html.Br(),
+                html.Br(),
+            ],),
 
             dbc.Row([                 
                     # Plot 2
