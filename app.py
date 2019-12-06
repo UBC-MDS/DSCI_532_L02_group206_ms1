@@ -163,6 +163,23 @@ def make_plot_3(year_range = [2013,2016], animal = "Dog", month = 0):
     return chart
 
 def make_plot_4(year_range = [2013, 2016], animal = "All"):
+    """
+    Creates plot 4 which is age distribution bar chart/histogram
+
+    Parameters
+    ----------
+    year_range : list
+           elements of time range for chart
+    animal : string
+           interactive app droplist selection for chart filtering
+
+    Returns
+    -------
+    altair chart
+        altair chart object for html embedding
+
+    """
+
 
     # Filtering for intake year via common filter 
     if animal == "All":
@@ -197,6 +214,22 @@ def make_plot_4(year_range = [2013, 2016], animal = "All"):
     return chart
 
 def make_plot_5(year_range = [2013, 2016], intake_health_condition = "Healthy"):
+    """
+    Creates plot 5 which is boxplot chart for animal time spent in shelter.
+
+    Parameters
+    ----------
+    year_range : list
+           elements of time range for chart
+    intake_health_condition : string
+           interactive app droplist selection for chart filtering
+
+    Returns
+    -------
+    altair chart
+        altair chart object for html embedding
+
+    """
 
     # Filtering for intake year via common filter 
     if intake_health_condition == "All":
