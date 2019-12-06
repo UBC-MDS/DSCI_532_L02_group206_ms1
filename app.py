@@ -71,20 +71,51 @@ def make_plot_1(year_range = [2013,2016]):
     """
 
     data_new_filter = data_new[((data_new['intake_year'] >= year_range[0]) & (data_new['intake_year'] <= year_range[1]))]
-    chart = alt.Chart(data_new_filter).mark_line().encode(
-        alt.X("yearmonth(intake_monthyear):O", title = None),
-        alt.Y('count', title="Count"),
-        alt.Color("Type")
-        )
+    data_new_filter.columns = ["monthyear","count", "Type", "year"]
     data_new_filter1 = data_new1[data_new1['outcome_monthyear'] != "2018-04"]
     data_new_filter1 = data_new_filter1[((data_new_filter1['outtake_year'] >= year_range[0]) & (data_new_filter1['outtake_year'] <= year_range[1]))]
-    chart1 = alt.Chart(data_new_filter1).mark_line().encode(
-        alt.X("yearmonth(outcome_monthyear):O", title = None),
-        alt.Y('count', title="Count"),
-        alt.Color("Type")
-        )
+    data_new_filter1.columns = ["monthyear","count", "Type", "year"]
+    data_combine = pd.concat([data_new_filter,data_new_filter1])
 
-    return ((chart + chart1).properties(
+    
+
+    nearest = alt.selection(type='single', nearest=True, on='mouseover',
+                        fields=['monthyear'], empty='none')
+
+    line = alt.Chart(data_combine).mark_line().encode(
+        alt.X("yearmonth(monthyear):O", title = None),
+        alt.Y('count', title="Count"),
+        alt.Color("Type:N")
+        )
+    
+    selectors = alt.Chart(data_combine).mark_point().encode(
+    x='yearmonth(monthyear):O',
+    opacity=alt.value(0),
+    ).add_selection(
+    nearest
+    )
+
+    points = line.mark_point().encode(
+    opacity=alt.condition(nearest, alt.value(1), alt.value(0))
+    )
+
+    text1 = line.mark_text(align='left', dx=5, dy=-5).encode(
+    text=alt.condition(nearest, 'count:Q', alt.value(' '))
+    )
+
+    text2 = line.mark_text(align='right', dx=0, dy=-5).encode(
+    text=alt.condition(nearest, 'yearmonth(monthyear):O', alt.value(' '))
+    )
+
+    rules = alt.Chart(data_combine).mark_rule(color='gray').encode(
+    x='yearmonth(monthyear):O',
+    ).transform_filter(
+    nearest
+    )
+
+
+    
+    return (alt.layer(line, selectors, points, rules, text1, text2).properties(
         title='Trends in Intakes & Outtakes of Shelter Animals',
         width=950, height=300).configure_axisX(
             labelFontSize=14,
